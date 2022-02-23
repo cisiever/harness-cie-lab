@@ -74,6 +74,31 @@ pipeline:
                                             memory: 1Gi
                                             cpu: "1"
         - stage:
+              name: cisiever_approval
+              identifier: cisiever_approval
+              description: ""
+              type: Approval
+              spec:
+                  execution:
+                      steps:
+                          - step:
+                                name: Approval
+                                identifier: approval
+                                type: HarnessApproval
+                                timeout: 1d
+                                spec:
+                                    approvalMessage: |-
+                                        Please review the following information
+                                        and approve the pipeline progression
+                                    includePipelineExecutionHistory: true
+                                    approvers:
+                                        minimumCount: 1
+                                        disallowPipelineExecutor: false
+                                        userGroups:
+                                            - Approvers
+                                    approverInputs: []
+              tags: {}
+        - stage:
               name: DeployDev
               identifier: DeployDev
               description: ""
